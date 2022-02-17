@@ -1,0 +1,18 @@
+inputs:
+  in_tcp_json:
+    disabled: false
+    host: 0.0.0.0
+    tls:
+      disabled: true
+    ipWhitelistRegex: /.*/
+    enableProxyHeader: false
+    authToken: ""
+    type: tcpjson
+    port: 10070
+    authType: manual
+    sendToRoutes: false
+    connections:
+      - output: elastic-out4
+        pipeline: ""
+      - output: file_id
+        pipeline: ""

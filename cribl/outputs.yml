@@ -1,0 +1,40 @@
+outputs:
+  elastic-out4:
+    systemFields: []
+    streamtags: []
+    concurrency: 5
+    maxPayloadSizeKB: 4096
+    maxPayloadEvents: 0
+    compress: false
+    rejectUnauthorized: false
+    timeoutSec: 30
+    flushPeriodSec: 1
+    useRoundRobinDns: false
+    failedRequestLoggingMode: none
+    safeHeaders: []
+    auth:
+      disabled: true
+    elasticVersion: auto
+    onBackpressure: block
+    type: elastic
+    url: http://es01:9200/_bulk
+    index: cribl
+    docType: _doc
+  file_id:
+    systemFields: []
+    streamtags: []
+    addIdToStagePath: true
+    removeEmptyDirs: false
+    partitionExpr: "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')"
+    format: raw
+    baseFileName: "`CriblOut`"
+    fileNameSuffix: '`.${C.env["CRIBL_WORKER_ID"]}.${__format}${__compression === "gzip" ?
+      ".gz" : ""}`'
+    compress: none
+    maxFileSizeMB: 32
+    maxFileOpenTimeSec: 300
+    maxFileIdleTimeSec: 30
+    maxOpenFiles: 100
+    onBackpressure: block
+    type: filesystem
+    destPath: /tmp/test_data
