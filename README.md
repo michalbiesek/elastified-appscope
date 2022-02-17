@@ -80,3 +80,8 @@ To clean up the demo, simply run `stop.sh`:
 ./stop.sh
 ```
 
+Elasticsearch by default store the data in `/elasticsearch/data` using `docker volume`, to clean it up:
+
+```bash
+docker volume prune
+```
