@@ -25,7 +25,7 @@ done
 
 printf '\n'
 echo "Copying the kibana Configuration"
-curl -X POST http://localhost:5601/api/saved_objects/_import?createNewCopies=true -H "kbn-xsrf: true" --form file=@elastic_cfg.ndjson
+curl -X POST http://localhost:5601/api/saved_objects/_import?overwrite=true -H "kbn-xsrf: true" --form file=@elastic_cfg.ndjson
 
 printf '\n'
 echo "Demo is ready."
