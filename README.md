@@ -85,3 +85,14 @@ Elasticsearch by default store the data in `/elasticsearch/data` using `docker v
 ```bash
 docker volume prune
 ```
+
+## Clean up the cribl data
+
+https://www.elastic.co/guide/en/kibana/current/console-kibana.html
+https://www.elastic.co/guide/en/kibana/current/saved-objects-api-delete.html
+
+Use query to clean up the current cribl data
+
+```
+DELETE cribl
+```
