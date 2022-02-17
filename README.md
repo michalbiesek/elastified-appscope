@@ -30,7 +30,7 @@ The diagram below depicts the Logstream configuration
 ## Prerequisites
 For this demo environment, you will need Docker, `bash` and a `curl`.
 
-Before run please ensure that Elasticsearch have proper vitual memory [settings](https://www.elastic.co/guide/en/elasticsearch/reference/7.17/vm-max-map-count.html).
+Before run please ensure that Elasticsearch have proper virtual memory [settings](https://www.elastic.co/guide/en/elasticsearch/reference/7.17/vm-max-map-count.html).
 
 
 
