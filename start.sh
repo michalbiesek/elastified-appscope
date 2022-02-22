@@ -1,5 +1,16 @@
 #!/bin/bash
 
+VM_EXPECTED_LIMIT=262144
+VM_COUNT=`sysctl -n vm.max_map_count`
+
+echo "Checking virtual memory settings"
+
+if [ $VM_COUNT -lt $VM_EXPECTED_LIMIT ];then
+    echo "Error with vm.max_map_count settings value $VM_COUNT it too low"
+    echo "Please change the limit with: sudo sysctl -w vm.max_map_count=262144"
+    exit 1
+fi
+
 echo "Start docker compose"
 docker-compose up -d
 
