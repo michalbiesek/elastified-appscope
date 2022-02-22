@@ -55,6 +55,15 @@ Connect to the AppScope container and the scoping bash session will be captured:
 docker-compose run appscope01
 ```
 
+## Scoping by demand
+
+Connect to the AppScope container and the scoping bash session will be captured:
+
+```bash
+docker-compose run appscope02
+```
+
+
 ## Testing
 
 To Confirm that everything works correctly:

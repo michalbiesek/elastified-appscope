@@ -83,6 +83,18 @@ services:
     networks:
       - elastic
 
+  appscope02:
+    image: "cribl/scope:1.0.0"
+    container_name: appscope02
+    environment:
+      SCOPE_EVENT_METRIC: "true"
+      SCOPE_EVENT_HTTP: "true"
+      SCOPE_EVENT_NET: "true"
+      SCOPE_EVENT_FS: "true"
+      SCOPE_CRIBL: tcp://cribl01:10070
+    networks:
+      - elastic
+
   cribl01:
     image: "cribl/cribl:3.3.0"
     container_name: cribl01
