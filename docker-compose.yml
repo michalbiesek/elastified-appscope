@@ -79,6 +79,7 @@ services:
       SCOPE_EVENT_NET: "true"
       SCOPE_EVENT_FS: "true"
       SCOPE_CRIBL: tcp://cribl01:10070
+      SCOPE_TAG_container_name: "appscope01"
       LD_PRELOAD: /usr/local/lib/libscope.so
     networks:
       - elastic
@@ -92,6 +93,7 @@ services:
       SCOPE_EVENT_NET: "true"
       SCOPE_EVENT_FS: "true"
       SCOPE_CRIBL: tcp://cribl01:10070
+      SCOPE_TAG_container_name: "appscope02"
     networks:
       - elastic
 
