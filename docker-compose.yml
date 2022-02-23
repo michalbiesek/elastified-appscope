@@ -1,7 +1,7 @@
 version: '2.2'
 services:
   es01:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.0
+    image: "docker.elastic.co/elasticsearch/elasticsearch:${ES_VERSION}"
     container_name: es01
     environment:
       - node.name=es01
@@ -17,12 +17,12 @@ services:
     volumes:
       - data01:/usr/share/elasticsearch/data
     ports:
-      - 9200:9200
+      - "${ES_HOST_PORT}:5601"
     networks:
       - elastic
 
   es02:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.0
+    image: "docker.elastic.co/elasticsearch/elasticsearch:${ES_VERSION}"
     container_name: es02
     environment:
       - node.name=es02
@@ -41,7 +41,7 @@ services:
       - elastic
 
   es03:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.0
+    image: "docker.elastic.co/elasticsearch/elasticsearch:${ES_VERSION}"
     container_name: es03
     environment:
       - node.name=es03
@@ -60,10 +60,10 @@ services:
       - elastic
 
   kib01:
-    image: docker.elastic.co/kibana/kibana:7.17.0
+    image: "docker.elastic.co/kibana/kibana:${KIBANA_VERSION}"
     container_name: kib01
     ports:
-      - 5601:5601
+      - "${KIBANA_HOST_PORT}:5601"
     environment:
       ELASTICSEARCH_URL: http://es01:9200
       ELASTICSEARCH_HOSTS: '["http://es01:9200","http://es02:9200","http://es03:9200"]'
@@ -71,7 +71,7 @@ services:
       - elastic
 
   appscope01:
-    image: "cribl/scope:1.0.0"
+    image: "cribl/scope:${APPSCOPE_VERSION}"
     container_name: appscope01
     environment:
       SCOPE_EVENT_METRIC: "true"
@@ -85,7 +85,7 @@ services:
       - elastic
 
   appscope02:
-    image: "cribl/scope:1.0.0"
+    image: "cribl/scope:${APPSCOPE_VERSION}"
     container_name: appscope02
     environment:
       SCOPE_EVENT_METRIC: "true"
@@ -98,10 +98,10 @@ services:
       - elastic
 
   cribl01:
-    image: "cribl/cribl:3.3.0"
+    image: "cribl/cribl:${CRIBL_VERSION}"
     container_name: cribl01
     ports:
-      - 9000:9000
+      - "${CRIBL_HOST_PORT}:9000"
     networks:
       - elastic
 

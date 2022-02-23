@@ -7,7 +7,7 @@ This demo environmetnt uses:
 - [ElasticSearch](https://www.elastic.co/elasticsearch/) to store data 
 - [Kibana](https://www.elastic.co/products/kibana) to visualize metrics/events 
 
-Services will be available on following URL:
+By default services will be available on following URL:
 
 |Service|URL|
 |-------|---|
@@ -15,6 +15,7 @@ Services will be available on following URL:
 |ElasticSearch|[http://localhost:9200](http://localhost:9200)|
 |LogStream|[http://localhost:9000](http://localhost:9000)|
 
+If you need some custom values please modify `.env` file.
 ## Overview
 
 The diagram below depicts the demo cluster.
