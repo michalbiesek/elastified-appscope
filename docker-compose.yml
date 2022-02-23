@@ -1,7 +1,7 @@
 version: '2.2'
 services:
   es01:
-    image: "docker.elastic.co/elasticsearch/elasticsearch:${ES_VERSION}"
+    image: "docker.elastic.co/elasticsearch/elasticsearch:${ES_VERSION:-7.17.0}"
     container_name: es01
     environment:
       - node.name=es01
@@ -17,12 +17,12 @@ services:
     volumes:
       - data01:/usr/share/elasticsearch/data
     ports:
-      - "${ES_HOST_PORT}:5601"
+      - "${ES_HOST_PORT:-9200}:9200"
     networks:
       - elastic
 
   es02:
-    image: "docker.elastic.co/elasticsearch/elasticsearch:${ES_VERSION}"
+    image: "docker.elastic.co/elasticsearch/elasticsearch:${ES_VERSION:-7.17.0}"
     container_name: es02
     environment:
       - node.name=es02
@@ -41,7 +41,7 @@ services:
       - elastic
 
   es03:
-    image: "docker.elastic.co/elasticsearch/elasticsearch:${ES_VERSION}"
+    image: "docker.elastic.co/elasticsearch/elasticsearch:${ES_VERSION:-7.17.0}"
     container_name: es03
     environment:
       - node.name=es03
@@ -60,10 +60,10 @@ services:
       - elastic
 
   kib01:
-    image: "docker.elastic.co/kibana/kibana:${KIBANA_VERSION}"
+    image: "docker.elastic.co/kibana/kibana:${KIBANA_VERSION:-7.17.0}"
     container_name: kib01
     ports:
-      - "${KIBANA_HOST_PORT}:5601"
+      - "${KIBANA_HOST_PORT:-5601}:5601"
     environment:
       ELASTICSEARCH_URL: http://es01:9200
       ELASTICSEARCH_HOSTS: '["http://es01:9200","http://es02:9200","http://es03:9200"]'
@@ -71,37 +71,37 @@ services:
       - elastic
 
   appscope01:
-    image: "cribl/scope:${APPSCOPE_VERSION}"
+    image: "cribl/scope:${APPSCOPE_VERSION:-1.0.0}"
     container_name: appscope01
     environment:
       SCOPE_EVENT_METRIC: "true"
       SCOPE_EVENT_HTTP: "true"
       SCOPE_EVENT_NET: "true"
       SCOPE_EVENT_FS: "true"
-      SCOPE_CRIBL: tcp://cribl01:10070
+      SCOPE_CRIBL: "${APPSCOPE_DEST:-tcp://cribl01:10070}"
       SCOPE_TAG_container_name: "appscope01"
       LD_PRELOAD: /usr/local/lib/libscope.so
     networks:
       - elastic
 
   appscope02:
-    image: "cribl/scope:${APPSCOPE_VERSION}"
+    image: "cribl/scope:${APPSCOPE_VERSION:-1.0.0}"
     container_name: appscope02
     environment:
       SCOPE_EVENT_METRIC: "true"
       SCOPE_EVENT_HTTP: "true"
       SCOPE_EVENT_NET: "true"
       SCOPE_EVENT_FS: "true"
-      SCOPE_CRIBL: tcp://cribl01:10070
+      SCOPE_CRIBL: "${APPSCOPE_DEST:-tcp://cribl01:10070}"
       SCOPE_TAG_container_name: "appscope02"
     networks:
       - elastic
 
   cribl01:
-    image: "cribl/cribl:${CRIBL_VERSION}"
+    image: "cribl/cribl:${CRIBL_VERSION:-3.3.0}"
     container_name: cribl01
     ports:
-      - "${CRIBL_HOST_PORT}:9000"
+      - "${CRIBL_HOST_PORT:-9000}:9000"
     networks:
       - elastic
 
