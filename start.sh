@@ -41,4 +41,5 @@ curl -X POST http://localhost:$KIBANA_HOST_PORT/api/saved_objects/_import?overwr
 
 printf '\n'
 echo "Demo is ready."
-echo "To start scoping session run: docker-compose run appscope01"
+echo "To start scoping bash session run: docker-compose run appscope01"
+echo "To start scoping individual commands run: docker-compose run appscope02 and use ldscope/scope"
