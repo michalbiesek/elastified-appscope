@@ -13,7 +13,7 @@ if [ $VM_COUNT -lt $VM_EXPECTED_LIMIT ];then
 fi
 
 echo "Start docker compose"
-docker-compose --env-file .env up -d
+docker-compose --env-file .env up -d --build
 
 echo "Copying the Cribl Configuration"
 docker cp cribl/ cribl01:/opt/cribl/local/
