@@ -1,4 +1,4 @@
-# elastic-appscope
+# elastified-appscope
 
 This demo presents observabiliy setup based on AppScope and Logstream.
 
