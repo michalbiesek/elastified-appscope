@@ -1,11 +1,11 @@
 # elastified-appscope
 
-This demo presents observabiliy setup based on AppScope and Logstream.
+This demo presents observabiliy setup based on AppScope and Stream.
 
 ## Contents
 1. [Prerequisites](#prerequisites)
 2. [Overview](#overview)
-	* [Logstream configuration](#logstream-configuration)
+	* [Stream configuration](#stream-configuration)
 3. [Building and Running](#building-and-running)
 	* [Build Demo](#build-demo)
 	* [Testing](#testing)
@@ -25,7 +25,7 @@ Before run please ensure that Elasticsearch have proper virtual memory [settings
 This demo environment uses:
 
 - [AppScope](https://appscope.dev/) to instrument application running in demo environment.
-- [Logstream](https://cribl.io/logstream/) as a agent
+- [Stream](https://cribl.io/stream/) as a agent
 - [ElasticSearch](https://www.elastic.co/elasticsearch/) to store data 
 - [Kibana](https://www.elastic.co/products/kibana) to visualize metrics/events 
 
@@ -35,7 +35,7 @@ By default services will be available on following URL:
 |-------|---|
 |Kibana|[http://localhost:5601](http://localhost:5601)|
 |ElasticSearch|[http://localhost:9200](http://localhost:9200)|
-|LogStream|[http://localhost:9000](http://localhost:9000)|
+|Stream|[http://localhost:9000](http://localhost:9000)|
 
 If you need some custom values please modify `.env` file.
 
@@ -45,10 +45,10 @@ The diagram below depicts the demo cluster.
 ![Schema_overall](schema.png)
 
 
-## Logstream configuration
+## Stream configuration
 
-The diagram below depicts the Logstream configuration
-![Schema_logstream](logstream.png)
+The diagram below depicts the Stream configuration
+![Schema_stream](logstream.png)
 
 
 ## Building and Running
