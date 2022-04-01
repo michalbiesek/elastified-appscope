@@ -48,7 +48,7 @@ The diagram below depicts the demo cluster.
 ## Stream configuration
 
 The diagram below depicts the Stream configuration
-![Schema_stream](logstream.png)
+![Schema_stream](stream.png)
 
 
 ## Building and Running
