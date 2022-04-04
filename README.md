@@ -1,65 +1,62 @@
 # elastified-appscope
 
-This demo presents observabiliy setup based on AppScope and Stream.
+This demo uses Kibana to visualize data collected with [AppScope](https://github.com/criblio/appscope), an open source, runtime-agnostic instrumentation utility for any Linux command or application.
 
 ## Contents
-1. [Prerequisites](#prerequisites)
-2. [Overview](#overview)
-	* [Stream configuration](#stream-configuration)
-3. [Building and Running](#building-and-running)
-	* [Build Demo](#build-demo)
-	* [Testing](#testing)
-	* [Scoping the bash session](#scoping-the-bash-session)
-	* [Scoping on demand](#scoping-on-demand)
-	* [Clean up Demo](#clean-up-demo)
-4. [Notes](#notes)
-	* [Clean up the cribl data in ElasticSearch](#clean-up-the-cribl-data-in-elasticsearch)
+- [elastified-appscope](#elastified-appscope)
+	- [Contents](#contents)
+	- [Prerequisites](#prerequisites)
+	- [Overview](#overview)
+	- [Cribl Stream configuration](#cribl-stream-configuration)
+	- [Using the demo](#using-the-demo)
+	- [Building](#building)
+	- [Testing](#testing)
+	- [Scoping the bash session](#scoping-the-bash-session)
+	- [Scoping an individual command](#scoping-an-individual-command)
+	- [Cleaning up after a session](#cleaning-up-after-a-session)
 
 ## Prerequisites
-For this demo environment, you will need Docker, `bash` and a `curl`.
-
-Before run please ensure that Elasticsearch have proper virtual memory [settings](https://www.elastic.co/guide/en/elasticsearch/reference/7.17/vm-max-map-count.html).
+For this demo environment, you will need Docker, `bash`, and `curl`.
 
 ## Overview
 
 This demo environment uses:
 
-- [AppScope](https://appscope.dev/) to instrument application running in demo environment.
-- [Stream](https://cribl.io/stream/) as a agent
-- [ElasticSearch](https://www.elastic.co/elasticsearch/) to store data 
-- [Kibana](https://www.elastic.co/products/kibana) to visualize metrics/events 
+- [AppScope](https://appscope.dev/) to instrument applications running in the demo environment.
+- [Cribl Stream](https://cribl.io/stream/) as a agent.
+- [Elasticsearch](https://www.elastic.co/Elasticsearch/) to store data. 
+- [Kibana](https://www.elastic.co/products/kibana) to visualize metrics and events. 
 
-By default services will be available on following URL:
+By default, the services will be available at the following URLs:
 
 |Service|URL|
 |-------|---|
+|Cribl Stream|[http://localhost:9000](http://localhost:9000)|
+|Elasticsearch|[http://localhost:9200](http://localhost:9200)|
 |Kibana|[http://localhost:5601](http://localhost:5601)|
-|ElasticSearch|[http://localhost:9200](http://localhost:9200)|
-|Stream|[http://localhost:9000](http://localhost:9000)|
 
-If you need some custom values please modify `.env` file.
-
-You
+If you want to modify these settings, edit the `.env` file.
 
 The diagram below depicts the demo cluster.
 ![Schema_overall](schema.png)
 
+## Cribl Stream configuration
 
-## Stream configuration
+The diagram below depicts the Cribl Stream configuration.
+![Schema_stream](logstream.png)
 
-The diagram below depicts the Stream configuration
-![Schema_stream](stream.png)
+## Using the demo
 
+The demo provides two interfaces, each of which runs in its own Docker container:
 
-## Building and Running
+- `appscope01` for scoping an entire bash session.
+- `appscope02` for scoping an individual command.
 
-The demo provides two interfaces:
-- scoping the bash session `appscope01`
-- scoping individual command `appscope02`
+You can opt to use a third interface, which simply runs AppScope on the host in the usual way (without running a Docker container). 
 
-- running AppScope on host
-To extend the functionality by using AppScope on host, please extend the ports settings in
-`cribl01` configuration with following:
+If this is your desired option, you must configure a Cribl Stream port to receive data from AppScope. Note that Cribl Stream _is_ running in its own Docker container, named `cribl01`.
+
+To do this, edit the `docker-compose.yml` to match the following:
 
 ```
   cribl01:
@@ -69,11 +66,11 @@ To extend the functionality by using AppScope on host, please extend the ports s
       - 10070:10070
 ```
 
-Set destination path to `tcp://127.0.0.1:10070` allows sending data to the observability setup.
+What this does is to set destination path for data sent by AppScope (running on the host) to `tcp://127.0.0.1:10070`.
 
-## Build Demo
+## Building
 
-To build the demo, simply run `start.sh`:
+To build the demo:
 
 ```bash
 ./start.sh
@@ -83,11 +80,13 @@ To build the demo, simply run `start.sh`:
 
 To confirm that everything works correctly:
 
-```
+```bash
 docker ps
 ```
 
-```
+You should see results similar to this:
+
+```bash
 CONTAINER ID   IMAGE                                                  COMMAND                  CREATED         STATUS         PORTS                                                 NAMES
 b7611e8bdfe9   docker.elastic.co/elasticsearch/elasticsearch:7.17.0   "/bin/tini -- /usr/l…"   4 seconds ago   Up 2 seconds   9200/tcp, 9300/tcp                                    es03
 c8e5d96b909f   cribl/cribl:3.4.0                                      "/sbin/entrypoint.sh…"   4 seconds ago   Up 2 seconds   0.0.0.0:9000->9000/tcp, :::9000->9000/tcp             cribl01
@@ -98,42 +97,47 @@ b5137275cb38   docker.elastic.co/elasticsearch/elasticsearch:7.17.0   "/bin/tini
 
 ## Scoping the bash session
 
-Connect to the AppScope container and the scoping bash session will be captured:
+Connect to the `appscope01` container:
 
 ```bash
 docker-compose run appscope01
 ```
 
-## Scoping on demand
+Every command that you run in the bash session will be scoped.
 
-Connect to the AppScope container and the scoping individual `command`:
+## Scoping an individual command
+
+Connect to the `appscope02` container and run the desired command:
 
 ```bash
 docker-compose run appscope02
 ldscope <command>
 ```
 
-## Clean up Demo
+## Cleaning up after a session 
 
-To clean up the demo, simply run `stop.sh`:
+To clean up the demo environment:
 
 ```bash
 ./stop.sh
 ```
 
-Elasticsearch by default store the data in `/elasticsearch/data` using `docker volume`, to clean it up:
+By default, Elasticsearch stores the data in `/Elasticsearch/data` using `docker volume`. 
+
+To clean it up:
 
 ```bash
 docker volume prune
 ```
-## Notes
-## Clean up the cribl data
 
-https://www.elastic.co/guide/en/kibana/current/console-kibana.html
-https://www.elastic.co/guide/en/kibana/current/saved-objects-api-delete.html
+To clean up Cribl data (i.e., data from Cribl Stream) that the Elasticsearch backend has stored: 
 
-Use query to clean up the current cribl data
+- Open the Kibana [console](https://www.elastic.co/guide/en/kibana/current/console-kibana.html).
+
+- In your Cribl Stream Elasticsearch Destination, note the [value](https://docs.cribl.io/stream/destinations-elastic/#general-settings) you have under **General Settings** > **Index or data stream**. Substitute this value you have set for <index_or_data_stream> in the example below, and run the query:
 
 ```
-DELETE cribl
+DELETE <index_or_data_stream>
 ```
+
+What this does is to send a request to the Kibana [Delete objects API](https://www.elastic.co/guide/en/kibana/current/saved-objects-api-delete.html).
