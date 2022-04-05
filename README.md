@@ -66,7 +66,7 @@ To do this, edit the `docker-compose.yml` to match the following:
       - 10070:10070
 ```
 
-What this does is to set destination path for data sent by AppScope (running on the host) to `tcp://127.0.0.1:10070`.
+What this does is to set the destination path for data sent by AppScope (running on the host) to `tcp://127.0.0.1:10070`.
 
 ### Building
 
@@ -138,7 +138,7 @@ To clean up Cribl data (i.e., data from Cribl Stream) that the Elasticsearch bac
 
 - Open the Kibana [console](https://www.elastic.co/guide/en/kibana/current/console-kibana.html).
 
-- In your Cribl Stream Elasticsearch Destination, note the [value](https://docs.cribl.io/stream/destinations-elastic/#general-settings) you have under **General Settings** > **Index or data stream**. Substitute this value you have set for <index_or_data_stream> in the example below, and run the query:
+- In your Cribl Stream Elasticsearch Destination, note the [value](https://docs.cribl.io/stream/destinations-elastic/#general-settings) you have under **General Settings** > **Index or data stream**. Substitute this value for `<index_or_data_stream>` in the example below, and run the query:
 
 ```
 DELETE <index_or_data_stream>
