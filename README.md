@@ -1,19 +1,19 @@
-# elastified-appscope
+<h1> elastified-appscope </h1>
 
 This demo uses Kibana to visualize data collected with [AppScope](https://github.com/criblio/appscope), an open source, runtime-agnostic instrumentation utility for any Linux command or application.
 
-## Contents
-- [elastified-appscope](#elastified-appscope)
-	- [Contents](#contents)
-	- [Prerequisites](#prerequisites)
-	- [Overview](#overview)
-	- [Cribl Stream configuration](#cribl-stream-configuration)
-	- [Using the demo](#using-the-demo)
+**Contents**
+
+- [Prerequisites](#prerequisites)
+- [Overview](#overview)
+- [Cribl Stream configuration](#cribl-stream-configuration)
+- [Preparation](#preparation)
 	- [Building](#building)
 	- [Testing](#testing)
+- [Using the demo](#using-the-demo)
 	- [Scoping the bash session](#scoping-the-bash-session)
 	- [Scoping an individual command](#scoping-an-individual-command)
-	- [Cleaning up after a session](#cleaning-up-after-a-session)
+- [Cleaning up after a session](#cleaning-up-after-a-session)
 
 ## Prerequisites
 For this demo environment, you will need Docker, `bash`, and `curl`.
@@ -45,7 +45,7 @@ The diagram below depicts the demo cluster.
 The diagram below depicts the Cribl Stream configuration.
 ![Schema_stream](logstream.png)
 
-## Using the demo
+## Preparation
 
 The demo provides two interfaces, each of which runs in its own Docker container:
 
@@ -68,7 +68,7 @@ To do this, edit the `docker-compose.yml` to match the following:
 
 What this does is to set destination path for data sent by AppScope (running on the host) to `tcp://127.0.0.1:10070`.
 
-## Building
+### Building
 
 To build the demo:
 
@@ -76,7 +76,7 @@ To build the demo:
 ./start.sh
 ```
 
-## Testing
+### Testing
 
 To confirm that everything works correctly:
 
@@ -95,7 +95,11 @@ f171487fbf47   docker.elastic.co/kibana/kibana:7.17.0                 "/bin/tini
 b5137275cb38   docker.elastic.co/elasticsearch/elasticsearch:7.17.0   "/bin/tini -- /usr/l…"   4 seconds ago   Up 2 seconds   0.0.0.0:9200->9200/tcp, :::9200->9200/tcp, 9300/tcp   es01
 ```
 
-## Scoping the bash session
+## Using the demo
+
+This section covers how to run the `appscope01` and `appscope02` containers; no special instructions are needed for the third option, of running AppScope on the host in the usual way.
+
+### Scoping the bash session
 
 Connect to the `appscope01` container:
 
@@ -105,7 +109,7 @@ docker-compose run appscope01
 
 Every command that you run in the bash session will be scoped.
 
-## Scoping an individual command
+### Scoping an individual command
 
 Connect to the `appscope02` container and run the desired command:
 
