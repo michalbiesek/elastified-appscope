@@ -43,7 +43,7 @@ The diagram below depicts the demo cluster.
 ## Cribl Stream configuration
 
 The diagram below depicts the Cribl Stream configuration.
-![Schema_stream](logstream.png)
+![Schema_stream](stream.png)
 
 ## Preparation
 
