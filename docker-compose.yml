@@ -98,6 +98,22 @@ services:
     networks:
       - elastic
 
+  appscope01_tls:
+    image: "cribl/scope:${APPSCOPE_VERSION:-1.0.3}"
+    container_name: appscope01_tls
+    environment:
+      SCOPE_EVENT_METRIC: "true"
+      SCOPE_EVENT_HTTP: "true"
+      SCOPE_EVENT_NET: "true"
+      SCOPE_EVENT_FS: "true"
+      SCOPE_CRIBL: "${APPSCOPE_DEST_TLS:-tcp://cribl01:10071}"
+      SCOPE_CRIBL_TLS_ENABLE: "true"
+      SCOPE_CRIBL_TLS_CA_CERT_PATH: "${TLS_CA_CERT:-/opt/domain.crt}"
+      SCOPE_TAG_container_name: "appscope01_tls"
+    tty: true
+    networks:
+      - elastic
+
   cribl01:
     image: "cribl/cribl:${CRIBL_VERSION:-3.4.0}"
     container_name: cribl01
