@@ -16,7 +16,7 @@ This demo uses Kibana to visualize data collected with [AppScope](https://github
 - [Cleaning up after a session](#cleaning-up-after-a-session)
 
 ## Prerequisites
-For this demo environment, you will need Docker, `bash`, and `curl`.
+For this demo environment, you will need Docker, `bash`, `openssl` and `curl`.
 
 ## Overview
 
