@@ -95,6 +95,7 @@ services:
       SCOPE_EVENT_FS: "true"
       SCOPE_CRIBL: "${APPSCOPE_DEST:-tcp://cribl01:10070}"
       SCOPE_TAG_container_name: "appscope02"
+    tty: true
     networks:
       - elastic
 

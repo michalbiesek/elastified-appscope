@@ -114,7 +114,7 @@ Every command that you run in the bash session will be scoped.
 Connect to the `appscope02` container and run the desired command:
 
 ```bash
-docker-compose run appscope02
+docker exec -it appscope02 bash
 ldscope <command>
 ```
 

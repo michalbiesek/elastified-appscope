@@ -34,7 +34,7 @@ echo "Checking virtual memory settings"
 
 if [ $VM_COUNT -lt $VM_EXPECTED_LIMIT ];then
     echo "Error with vm.max_map_count settings value $VM_COUNT it too low"
-    echo "Please change the limit with: sudo sysctl -w vm.max_map_count=$VM_EXPECTED_LIMIT"
+    echo "Please change the limit with: 'sudo sysctl -w vm.max_map_count=$VM_EXPECTED_LIMIT'"
     exit 1
 fi
 
@@ -75,7 +75,7 @@ curl -X POST http://localhost:$KIBANA_HOST_PORT/api/saved_objects/_import?overwr
 printf '\n'
 echo "Demo is ready."
 echo "To use TCP:"
-echo "To start scoping bash session run: docker-compose run appscope01"
-echo "To start scoping individual commands run: docker-compose run appscope02 and use ldscope/scope"
+echo "To start scoping bash session run: 'docker-compose run appscope01'"
+echo "To start scoping individual commands run: 'docker exec -it appscope02 bash' and use ldscope/scope"
 echo "To use TLS:"
-echo "To start scoping individual commands run: docker exec -it appscope01_tls bash and use ldscope/scope"
+echo "To start scoping individual commands run: 'docker exec -it appscope01_tls bash' and use ldscope/scope"
