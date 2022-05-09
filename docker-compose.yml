@@ -116,7 +116,7 @@ services:
       - elastic
 
   cribl01:
-    image: "cribl/cribl:${CRIBL_VERSION:-3.4.0}"
+    image: "cribl/cribl:${CRIBL_VERSION:-3.4.1}"
     container_name: cribl01
     ports:
       - "${CRIBL_HOST_PORT:-9000}:9000"
