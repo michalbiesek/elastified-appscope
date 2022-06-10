@@ -1,14 +1,32 @@
 inputs:
   in_tcp_json:
+    disabled: true
+    sendToRoutes: false
+    pqEnabled: false
+    streamtags: []
+    host: 0.0.0.0
+    tls:
+      disabled: true
+    ipWhitelistRegex: /.*/
+    maxActiveCxn: 1000
+    enableProxyHeader: false
+    authType: manual
+    authToken: ""
+    type: tcpjson
+    port: 10070
+    connections: []
+  in_appscope:
     disabled: false
     host: 0.0.0.0
     tls:
       disabled: true
     ipWhitelistRegex: /.*/
+    maxActiveCxn: 1000
     enableProxyHeader: false
+    staleChannelFlushMs: 10000
     authToken: ""
-    type: tcpjson
-    port: 10070
+    type: appscope
+    port: 10090
     authType: manual
     sendToRoutes: false
     connections:
@@ -17,7 +35,10 @@ inputs:
       - output: file_id
         pipeline: ""
   in_tcp_json_tls:
-    disabled: false
+    disabled: true
+    sendToRoutes: false
+    pqEnabled: false
+    streamtags: []
     host: 0.0.0.0
     tls:
       disabled: false
@@ -25,12 +46,33 @@ inputs:
       privKeyPath: /opt/domain.key
       certPath: /opt/domain.crt
     ipWhitelistRegex: /.*/
+    maxActiveCxn: 1000
     enableProxyHeader: false
+    authType: manual
     authToken: ""
     type: tcpjson
     port: 10071
-    authType: manual
+    connections: []
+  in_appscope_tls:
+    disabled: false
     sendToRoutes: false
+    pqEnabled: false
+    streamtags: []
+    ipWhitelistRegex: /.*/
+    maxActiveCxn: 1000
+    enableProxyHeader: false
+    staleChannelFlushMs: 10000
+    enableUnixPath: false
+    authType: manual
+    tls:
+      disabled: false
+      requestCert: false
+      privKeyPath: /opt/domain.key
+      certPath: /opt/domain.crt
+    authToken: ""
+    type: appscope
+    port: 10091
+    host: 0.0.0.0
     connections:
       - output: elastic-out4
         pipeline: ""

@@ -79,7 +79,7 @@ services:
       SCOPE_EVENT_HTTP: "true"
       SCOPE_EVENT_NET: "true"
       SCOPE_EVENT_FS: "true"
-      SCOPE_CRIBL: "${APPSCOPE_DEST:-tcp://cribl01:10070}"
+      SCOPE_CRIBL: "${APPSCOPE_DEST:-tcp://cribl01:10090}"
       SCOPE_TAG_container_name: "appscope01"
       LD_PRELOAD: /usr/local/lib/libscope.so
     networks:
@@ -93,7 +93,7 @@ services:
       SCOPE_EVENT_HTTP: "true"
       SCOPE_EVENT_NET: "true"
       SCOPE_EVENT_FS: "true"
-      SCOPE_CRIBL: "${APPSCOPE_DEST:-tcp://cribl01:10070}"
+      SCOPE_CRIBL: "${APPSCOPE_DEST:-tcp://cribl01:10090}"
       SCOPE_TAG_container_name: "appscope02"
     tty: true
     networks:
@@ -107,7 +107,7 @@ services:
       SCOPE_EVENT_HTTP: "true"
       SCOPE_EVENT_NET: "true"
       SCOPE_EVENT_FS: "true"
-      SCOPE_CRIBL: "${APPSCOPE_DEST_TLS:-tcp://cribl01:10071}"
+      SCOPE_CRIBL: "${APPSCOPE_DEST_TLS:-tcp://cribl01:10091}"
       SCOPE_CRIBL_TLS_ENABLE: "true"
       SCOPE_CRIBL_TLS_CA_CERT_PATH: "${TLS_CA_CERT:-/opt/domain.crt}"
       SCOPE_TAG_container_name: "appscope01_tls"
