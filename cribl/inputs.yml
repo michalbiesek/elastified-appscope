@@ -30,9 +30,9 @@ inputs:
     authType: manual
     sendToRoutes: false
     connections:
-      - output: elastic-out4
+      - output: elastic-out1
         pipeline: ""
-      - output: file_id
+      - output: file-out1
         pipeline: ""
   in_tcp_json_tls:
     disabled: true
@@ -74,7 +74,7 @@ inputs:
     port: 10091
     host: 0.0.0.0
     connections:
-      - output: elastic-out4
+      - output: elastic-out1
         pipeline: ""
-      - output: file_id
+      - output: file-out1
         pipeline: ""
