@@ -123,6 +123,17 @@ services:
     networks:
       - elastic
 
+  splunk01:
+    image: "splunk/splunk:${SPLUNK_VERSION:-8.2.6}"
+    container_name: splunk01
+    ports:
+      - "8000:8000"
+    environment:
+      SPLUNK_START_ARGS: "--accept-license"
+      SPLUNK_PASSWORD: "admin"
+    networks:
+      - elastic
+
 volumes:
   data01:
     driver: local

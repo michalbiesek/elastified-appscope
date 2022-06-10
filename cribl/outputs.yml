@@ -39,3 +39,21 @@ outputs:
     onBackpressure: block
     type: filesystem
     destPath: /tmp/test_data
+  splunk-out1:
+    systemFields:
+      - cribl_pipe
+    streamtags: []
+    port: 20010
+    nestedFields: none
+    throttleRatePerSec: "0"
+    tls:
+      disabled: true
+    connectionTimeout: 10000
+    writeTimeout: 60000
+    enableMultiMetrics: false
+    enableACK: true
+    onBackpressure: block
+    authType: manual
+    authToken: ""
+    type: splunk
+    host: splunk01
