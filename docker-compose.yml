@@ -72,7 +72,7 @@ services:
       - elastic
 
   appscope01:
-    image: "cribl/scope:${APPSCOPE_VERSION:-1.0.4}"
+    image: "cribl/scope:${APPSCOPE_VERSION:-1.1.0-rc2}"
     container_name: appscope01
     environment:
       SCOPE_EVENT_METRIC: "true"
@@ -86,7 +86,7 @@ services:
       - elastic
 
   appscope02:
-    image: "cribl/scope:${APPSCOPE_VERSION:-1.0.4}"
+    image: "cribl/scope:${APPSCOPE_VERSION:-1.1.0-rc2}"
     container_name: appscope02
     environment:
       SCOPE_EVENT_METRIC: "true"
@@ -100,7 +100,7 @@ services:
       - elastic
 
   appscope01_tls:
-    image: "cribl/scope:${APPSCOPE_VERSION:-1.0.4}"
+    image: "cribl/scope:${APPSCOPE_VERSION:-1.1.0-rc2}"
     container_name: appscope01_tls
     environment:
       SCOPE_EVENT_METRIC: "true"
