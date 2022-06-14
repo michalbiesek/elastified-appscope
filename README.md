@@ -16,6 +16,7 @@ This demo uses Kibana to visualize data collected with [AppScope](https://github
 - [Cleaning up after a session](#cleaning-up-after-a-session)
 
 ## Prerequisites
+
 For this demo environment, you will need Docker, `bash`, `openssl` and `curl`.
 
 ## Overview
@@ -24,8 +25,8 @@ This demo environment uses:
 
 - [AppScope](https://appscope.dev/) to instrument applications running in the demo environment.
 - [Cribl Stream](https://cribl.io/stream/) as a agent.
-- [Elasticsearch](https://www.elastic.co/Elasticsearch/) to store data. 
-- [Kibana](https://www.elastic.co/products/kibana) to visualize metrics and events. 
+- [Elasticsearch](https://www.elastic.co/Elasticsearch/) to store data.
+- [Kibana](https://www.elastic.co/products/kibana) to visualize metrics and events.
 
 By default, the services will be available at the following URLs:
 
@@ -53,7 +54,7 @@ The demo provides two interfaces, each of which runs in its own Docker container
 - `appscope02` for scoping an individual command using TCP connection.
 - `appscope01_tls` for scoping an individual command using TLS Secure Connections.
 
-You can opt to use a fourth interface, which simply runs AppScope on the host in the usual way (without running a Docker container). 
+You can opt to use a fourth interface, which simply runs AppScope on the host in the usual way (without running a Docker container).
 
 If this is your desired option, you must configure a Cribl Stream port to receive data from AppScope. Note that Cribl Stream _is_ running in its own Docker container, named `cribl01`.
 
@@ -70,6 +71,7 @@ To do this, edit the `docker-compose.yml` to match the following:
 
 What this does is exposed ports `10090` and `10091` to the host. The ports can be used to send data by AppScope
 (running on host):
+
 - for TCP `tcp://127.0.0.1:10090`
 - for TLS `tcp://127.0.0.1:10091` see [setup details](https://appscope.dev/docs/tls/#using-tls-for-secure-connections)
 
@@ -134,7 +136,7 @@ docker exec -it appscope01_tls bash
 ldscope <command>
 ```
 
-## Cleaning up after a session 
+## Cleaning up after a session
 
 To clean up the demo environment:
 
@@ -142,7 +144,7 @@ To clean up the demo environment:
 ./stop.sh
 ```
 
-By default, Elasticsearch stores the data in `/Elasticsearch/data` using `docker volume`. 
+By default, Elasticsearch stores the data in `/Elasticsearch/data` using `docker volume`.
 
 To clean it up:
 
@@ -150,7 +152,7 @@ To clean it up:
 docker volume prune
 ```
 
-To clean up Cribl data (i.e., data from Cribl Stream) that the Elasticsearch backend has stored: 
+To clean up Cribl data (i.e., data from Cribl Stream) that the Elasticsearch backend has stored:
 
 - Open the Kibana [console](https://www.elastic.co/guide/en/kibana/current/console-kibana.html).
 
