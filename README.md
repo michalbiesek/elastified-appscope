@@ -97,8 +97,8 @@ You should see results similar to this:
 
 ```bash
 CONTAINER ID   IMAGE                                                  COMMAND                  CREATED         STATUS         PORTS                                                 NAMES
-76af61bde578   cribl/scope:1.1.0-rc2                                  "bash"                   4 seconds ago   Up 2 seconds                                                         appscope01_tls
-1282f039efd9   cribl/scope:1.1.0-rc2                                  "bash"                   4 seconds ago   Up 2 seconds                                                         appscope02
+76af61bde578   cribl/scope:1.1.0                                      "bash"                   4 seconds ago   Up 2 seconds                                                         appscope01_tls
+1282f039efd9   cribl/scope:1.1.0                                      "bash"                   4 seconds ago   Up 2 seconds                                                         appscope02
 b7611e8bdfe9   docker.elastic.co/elasticsearch/elasticsearch:7.17.0   "/bin/tini -- /usr/l…"   4 seconds ago   Up 2 seconds   9200/tcp, 9300/tcp                                    es03
 c8e5d96b909f   cribl/cribl:3.4.2                                      "/sbin/entrypoint.sh…"   4 seconds ago   Up 2 seconds   0.0.0.0:9000->9000/tcp, :::9000->9000/tcp             cribl01
 4a4da91d6562   docker.elastic.co/elasticsearch/elasticsearch:7.17.0   "/bin/tini -- /usr/l…"   4 seconds ago   Up 2 seconds   9200/tcp, 9300/tcp                                    es02
