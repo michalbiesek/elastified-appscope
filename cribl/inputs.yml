@@ -1,20 +1,4 @@
 inputs:
-  in_tcp_json:
-    disabled: true
-    sendToRoutes: false
-    pqEnabled: false
-    streamtags: []
-    host: 0.0.0.0
-    tls:
-      disabled: true
-    ipWhitelistRegex: /.*/
-    maxActiveCxn: 1000
-    enableProxyHeader: false
-    authType: manual
-    authToken: ""
-    type: tcpjson
-    port: 10070
-    connections: []
   in_appscope:
     disabled: false
     host: 0.0.0.0
@@ -30,29 +14,8 @@ inputs:
     authType: manual
     sendToRoutes: false
     connections:
-      - output: elastic-out1
+      - output: devnull
         pipeline: ""
-      - output: file-out1
-        pipeline: ""
-  in_tcp_json_tls:
-    disabled: true
-    sendToRoutes: false
-    pqEnabled: false
-    streamtags: []
-    host: 0.0.0.0
-    tls:
-      disabled: false
-      requestCert: false
-      privKeyPath: /opt/domain.key
-      certPath: /opt/domain.crt
-    ipWhitelistRegex: /.*/
-    maxActiveCxn: 1000
-    enableProxyHeader: false
-    authType: manual
-    authToken: ""
-    type: tcpjson
-    port: 10071
-    connections: []
   in_appscope_tls:
     disabled: false
     sendToRoutes: false
@@ -74,7 +37,5 @@ inputs:
     port: 10091
     host: 0.0.0.0
     connections:
-      - output: elastic-out1
-        pipeline: ""
-      - output: file-out1
+      - output: devnull
         pipeline: ""

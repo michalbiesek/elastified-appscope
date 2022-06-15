@@ -1,78 +1,8 @@
 version: '2.2'
 services:
-  es01:
-    image: "docker.elastic.co/elasticsearch/elasticsearch:${ES_VERSION:-7.17.0}"
-    container_name: es01
-    environment:
-      - node.name=es01
-      - cluster.name=es-docker-cluster
-      - discovery.seed_hosts=es02,es03
-      - cluster.initial_master_nodes=es01,es02,es03
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    volumes:
-      - data01:/usr/share/elasticsearch/data
-    ports:
-      - "${ES_HOST_PORT:-9200}:9200"
-    networks:
-      - elastic
-
-  es02:
-    image: "docker.elastic.co/elasticsearch/elasticsearch:${ES_VERSION:-7.17.0}"
-    container_name: es02
-    environment:
-      - node.name=es02
-      - cluster.name=es-docker-cluster
-      - discovery.seed_hosts=es01,es03
-      - cluster.initial_master_nodes=es01,es02,es03
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    volumes:
-      - data02:/usr/share/elasticsearch/data
-    networks:
-      - elastic
-
-  es03:
-    image: "docker.elastic.co/elasticsearch/elasticsearch:${ES_VERSION:-7.17.0}"
-    container_name: es03
-    environment:
-      - node.name=es03
-      - cluster.name=es-docker-cluster
-      - discovery.seed_hosts=es01,es02
-      - cluster.initial_master_nodes=es01,es02,es03
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    volumes:
-      - data03:/usr/share/elasticsearch/data
-    networks:
-      - elastic
-
-  kib01:
-    image: "docker.elastic.co/kibana/kibana:${KIBANA_VERSION:-7.17.0}"
-    container_name: kib01
-    ports:
-      - "${KIBANA_HOST_PORT:-5601}:5601"
-    environment:
-      ELASTICSEARCH_URL: http://es01:9200
-      ELASTICSEARCH_HOSTS: '["http://es01:9200","http://es02:9200","http://es03:9200"]'
-      XPACK_ENCRYPTEDSAVEDOBJECTS_ENCRYPTIONKEY: "fCbfqHcHimbCoET3WEnVgkBK8ddXchWWBMLNzqmdNkwbaMHBGj89DvexgayzUEqe"
-    networks:
-      - elastic
-
+ 
   appscope01:
-    image: "cribl/scope:${APPSCOPE_VERSION:-1.1.0}"
+    image: "cribl/scope:${APPSCOPE_VERSION:-dev-x86_64}"
     container_name: appscope01
     environment:
       SCOPE_EVENT_METRIC: "true"
@@ -83,10 +13,10 @@ services:
       SCOPE_TAG_container_name: "appscope01"
       LD_PRELOAD: /usr/local/lib/libscope.so
     networks:
-      - elastic
+      - test_scope_net
 
   appscope02:
-    image: "cribl/scope:${APPSCOPE_VERSION:-1.1.0}"
+    image: "cribl/scope:${APPSCOPE_VERSION:-dev-x86_64}"
     container_name: appscope02
     environment:
       SCOPE_EVENT_METRIC: "true"
@@ -97,10 +27,10 @@ services:
       SCOPE_TAG_container_name: "appscope02"
     tty: true
     networks:
-      - elastic
+      - test_scope_net
 
   appscope01_tls:
-    image: "cribl/scope:${APPSCOPE_VERSION:-1.1.0}"
+    image: "cribl/scope:${APPSCOPE_VERSION:-dev-x86_64}"
     container_name: appscope01_tls
     environment:
       SCOPE_EVENT_METRIC: "true"
@@ -113,7 +43,42 @@ services:
       SCOPE_TAG_container_name: "appscope01_tls"
     tty: true
     networks:
-      - elastic
+      - test_scope_net
+
+  appscope03_ssh_test:
+    build:
+      context: ./images
+      dockerfile: Dockerfile
+    container_name: appscope03_ssh_test
+    environment:
+      #SCOPE_LOG_LEVEL: "debug"
+      #SCOPE_LOG_LEVEL: "trace"
+      SCOPE_CRIBL_ENABLE: "false"
+      # SCOPE_EVENT_ENABLE: "false"
+      SCOPE_METRIC_ENABLE: "false"
+      #SCOPE_EVENT_METRIC: "false"
+      #SCOPE_EVENT_HTTP: "true"
+      #SCOPE_EVENT_NET: "true"
+      #SCOPE_EVENT_FS: "true"
+      SCOPE_EVENT_DEST: "${APPSCOPE_DEST:-tcp://cribl01:10090}"
+      # SCOPE_CRIBL: "${APPSCOPE_DEST:-tcp://cribl01:10090}"
+      # SCOPE_EVENT_DEST: "file:///opt/test-runner/events.log"
+      # SCOPE_METRIC_DEST: "file:///opt/test-runner/metrics.log"
+      #SCOPE_TAG_container_name: "appscope03"
+    ports:
+      - "2022:22"
+    volumes:
+      - /home/michalbiesek/Github/appscope:/appscope
+    tty: true
+    # entrypoint:
+    #   - ldscope
+    #   - --
+    #   - /usr/sbin/sshd
+    #   - -D
+    networks:
+      - test_scope_net
+    cap_add:
+      - SYS_PTRACE
 
   cribl01:
     image: "cribl/cribl:${CRIBL_VERSION:-3.4.2}"
@@ -121,16 +86,8 @@ services:
     ports:
       - "${CRIBL_HOST_PORT:-9000}:9000"
     networks:
-      - elastic
-
-volumes:
-  data01:
-    driver: local
-  data02:
-    driver: local
-  data03:
-    driver: local
+      - test_scope_net
 
 networks:
-  elastic:
+  test_scope_net:
     driver: bridge
