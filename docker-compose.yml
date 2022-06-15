@@ -115,6 +115,30 @@ services:
     networks:
       - elastic
 
+  appscope03:
+    build:
+      context: ./images
+      dockerfile: Dockerfile
+    container_name: appscope03
+    environment:
+      SCOPE_CRIBL_ENABLE: "false"
+      SCOPE_EVENT_METRIC: "false"
+      SCOPE_EVENT_HTTP: "true"
+      SCOPE_EVENT_NET: "true"
+      SCOPE_EVENT_FS: "true"
+      SCOPE_EVENT_DEST: "${APPSCOPE_DEST:-tcp://cribl01:10090}"
+      SCOPE_TAG_container_name: "appscope03"
+    ports:
+      - "2022:22"
+    tty: true
+    # entrypoint:
+    #   - ldscope
+    #   - --
+    #   - /usr/sbin/sshd
+    #   - -D
+    networks:
+      - elastic
+
   cribl01:
     image: "cribl/cribl:${CRIBL_VERSION:-3.4.2}"
     container_name: cribl01

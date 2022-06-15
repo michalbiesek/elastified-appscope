@@ -38,6 +38,9 @@ if [ $VM_COUNT -lt $VM_EXPECTED_LIMIT ];then
     exit 1
 fi
 
+echo "Copying public key(s) from host to docker container"
+cp ~/.ssh/*pub images/
+
 echo "Start docker compose"
 docker-compose --env-file .env up -d --build
 
