@@ -60,7 +60,7 @@ If this is your desired option, you must configure a Cribl Stream port to receiv
 
 To do this, edit the `docker-compose.yml` to match the following:
 
-```
+```yml
   cribl01:
     ...
     ports:
@@ -158,7 +158,7 @@ To clean up Cribl data (i.e., data from Cribl Stream) that the Elasticsearch bac
 
 - In your Cribl Stream Elasticsearch Destination, note the [value](https://docs.cribl.io/stream/destinations-elastic/#general-settings) you have under **General Settings** > **Index or data stream**. Substitute this value for `<index_or_data_stream>` in the example below, and run the query:
 
-```
+```Shell
 DELETE <index_or_data_stream>
 ```
 
